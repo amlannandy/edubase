@@ -1,18 +1,10 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Container, Navbar, Nav, NavbarBrand, NavLink } from 'react-bootstrap';
 
-import { logout } from '../../store/actions/auth';
-
 const CustomNavbar = props => {
-  const dispatch = useDispatch();
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-
-  const logoutUser = () => {
-    console.log(props);
-    dispatch(logout());
-  };
+  const { isAuthenticated, name } = useSelector(state => state.auth);
 
   const guestLinks = (
     <Nav className='ml-auto'>
@@ -34,10 +26,9 @@ const CustomNavbar = props => {
         <NavLink>Classes</NavLink>
       </LinkContainer>
       <LinkContainer to='/account'>
-        <NavLink>Account</NavLink>
-      </LinkContainer>
-      <LinkContainer onClick={logoutUser} to='/login'>
-        <NavLink>Logout</NavLink>
+        <NavLink>
+          Hello <strong>{name}</strong>
+        </NavLink>
       </LinkContainer>
     </Nav>
   );

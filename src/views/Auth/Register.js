@@ -7,6 +7,7 @@ import { faUser, faLock, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { register } from '../../store/actions/auth';
 import { setAlert } from '../../store/actions/alert';
 import CustomInput from '../../components/Layout/CustomInput';
+import LoadingSpinner from '../../components/Layout/LoadingSpinner';
 
 const formReducer = (state, action) => {
   const { type, payload } = action;
@@ -25,7 +26,7 @@ const initialFormData = {
 
 const Register = props => {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const { isAuthenticated, isLoading } = useSelector(state => state.auth);
   const [formData, setFormData] = useReducer(formReducer, initialFormData);
 
   const registerUser = () => {
@@ -49,6 +50,10 @@ const Register = props => {
   const loginInstead = () => {
     props.history.push('/login');
   };
+
+  if (isLoading) {
+    return <LoadingSpinner message='Authenticating...' color='success' />;
+  }
 
   if (isAuthenticated) {
     return <Redirect to='/' />;
