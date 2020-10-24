@@ -11,7 +11,7 @@ const Account = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
   const breadcrumbRoutes = [
-    { link: '/', text: 'Home' },
+    { link: '/dashboard', text: 'Home' },
     { link: '/account', text: 'Account' },
   ];
 

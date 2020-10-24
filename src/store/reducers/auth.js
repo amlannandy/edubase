@@ -10,7 +10,7 @@ const initialState = {
   userId: null,
   email: null,
   name: null,
-  isLoading: false,
+  isLoading: true,
 };
 
 export default (state = initialState, action) => {
