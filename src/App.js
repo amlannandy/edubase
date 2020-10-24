@@ -1,13 +1,14 @@
 import React, { Fragment, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import { auth } from './firebase/firebase';
 import { AUTHENTICATE } from './store/actions/auth';
 
 import store from './store/store';
 import Routes from './routes/Routes';
+import Home from './views/Home/Home';
 import CustomAlert from './components/Layout/CustomAlert';
 import CustomNavbar from './components/Layout/CustomNavbar';
 
@@ -32,7 +33,10 @@ const App = () => {
         <Fragment>
           <CustomNavbar></CustomNavbar>
           <CustomAlert></CustomAlert>
-          <Routes></Routes>
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Routes />
+          </Switch>
         </Fragment>
       </Router>
     </Provider>

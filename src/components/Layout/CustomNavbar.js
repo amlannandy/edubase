@@ -19,7 +19,7 @@ const CustomNavbar = props => {
 
   const authenticatedLinks = (
     <Nav className='ml-auto'>
-      <LinkContainer to='/' exact>
+      <LinkContainer to='/dashboard' exact>
         <NavLink>Dashboard</NavLink>
       </LinkContainer>
       <LinkContainer to='/classes'>
@@ -36,7 +36,7 @@ const CustomNavbar = props => {
   return (
     <Navbar bg='dark' variant='dark'>
       <Container>
-        <LinkContainer to='/' exact>
+        <LinkContainer to={isAuthenticated ? '/dashboard' : '/'} exact>
           <NavbarBrand>Edubase</NavbarBrand>
         </LinkContainer>
         {isAuthenticated ? authenticatedLinks : guestLinks}
