@@ -9,20 +9,14 @@ import { setAlert } from '../../store/actions/alert';
 import CustomInput from '../../components/Layout/CustomInput';
 import LoadingSpinner from '../../components/Layout/LoadingSpinner';
 
-const formReducer = (state, action) => {
-  const { type, payload } = action;
-  return {
-    ...state,
-    [type]: payload,
-  };
-};
-
-const initialFormData = {
-  email: '',
-  password: '',
-};
+import formReducer from '../../utils/form_reducer';
 
 const Login = props => {
+  const initialFormData = {
+    email: '',
+    password: '',
+  };
+
   const dispatch = useDispatch();
   const { isAuthenticated, isLoading } = useSelector(state => state.auth);
   const [formData, setFormData] = useReducer(formReducer, initialFormData);
