@@ -1,6 +1,8 @@
 import React from 'react';
 import { Row, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
+import ClassesRoutes from '../../routes/sub_routes/ClassesRoutes';
 import CustomBreadCrumb from '../../components/Layout/CustomBreadCrumb';
 
 const Classes = () => {
@@ -17,9 +19,17 @@ const Classes = () => {
         <Button className='mr-2' variant='primary'>
           View All Classes
         </Button>
-        <Button variant='success'>Add New Class</Button>
+        <Button
+          as={Link}
+          className='mr-2'
+          variant='success'
+          to='/classes/add-new-class'>
+          Add New Class
+        </Button>
+        <Button variant='success'>Class Details</Button>
       </Row>
       <hr />
+      <ClassesRoutes />
     </div>
   );
 };

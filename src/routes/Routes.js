@@ -10,8 +10,10 @@ import Classes from '../views/Classes/Classes';
 import Account from '../views/Account/Account';
 import Dashboard from '../views/Dashboard/Dashboard';
 
-import GuestRoute from './GuestRoute';
-import PrivateRoute from './PrivateRoute';
+import PageNotFound from '../components/PageNotFound';
+
+import GuestRoute from './custom_routes/GuestRoute';
+import PrivateRoute from './custom_routes/PrivateRoute';
 
 const Routes = () => {
   return (
@@ -23,6 +25,7 @@ const Routes = () => {
         <PrivateRoute exact path='/account' component={Account} />
         <GuestRoute exact path='/login' component={Login} />
         <GuestRoute exact path='/register' component={Register} />
+        <Route component={PageNotFound} />
       </Switch>
     </Container>
   );

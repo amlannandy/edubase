@@ -5,7 +5,7 @@ import CustomInput from '../../components/Layout/CustomInput';
 const AddNewClass = () => {
   return (
     <div>
-      <CustomInput />
+      <h1>Add Class</h1>
     </div>
   );
 };

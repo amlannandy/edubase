@@ -15,15 +15,21 @@ import CustomNavbar from './components/Layout/CustomNavbar';
 const App = () => {
   useEffect(() => {
     auth.onAuthStateChanged(user => {
+      let payload;
       if (user != null) {
-        const payload = {
+        payload = {
           isAuthenticated: true,
           email: user.email,
           name: user.displayName,
           userId: user.uid,
+          isLoading: false,
         };
-        store.dispatch({ type: AUTHENTICATE, payload: payload });
+      } else {
+        payload = {
+          isLoading: false,
+        };
       }
+      store.dispatch({ type: AUTHENTICATE, payload: payload });
     });
   }, []);
 

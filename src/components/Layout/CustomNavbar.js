@@ -34,7 +34,7 @@ const CustomNavbar = props => {
   );
 
   return (
-    <Navbar bg='dark' variant='dark'>
+    <Navbar bg='dark' variant='dark' style={{ height: '10vh' }}>
       <Container>
         <LinkContainer to={isAuthenticated ? '/dashboard' : '/'} exact>
           <NavbarBrand>Edubase</NavbarBrand>
