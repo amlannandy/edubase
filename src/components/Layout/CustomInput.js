@@ -2,7 +2,7 @@ import React from 'react';
 import { InputGroup, FormControl } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const CustomInput = ({ text, icon, value, onChange, type }) => {
+const CustomInput = ({ text, icon, value, onChange, type = 'text' }) => {
   return (
     <InputGroup size='md' className='my-3'>
       <InputGroup.Prepend>
