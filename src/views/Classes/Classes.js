@@ -3,15 +3,21 @@ import React from 'react';
 import ClassesRoutes from '../../routes/sub_routes/ClassesRoutes';
 import CustomBreadCrumb from '../../components/Layout/CustomBreadCrumb';
 
-const Classes = ({ match: { url, isExact } }) => {
+const Classes = ({ location: { pathname }, match: { url, isExact } }) => {
   let breadcrumbRoutes = [
     { link: '/dashboard', text: 'Home' },
     { link: '/classes', text: 'Classes' },
-    {
-      link: url + '/add-new-class',
-      text: 'Add New Class',
-    },
   ];
+
+  if (!isExact) {
+    let link = url;
+    let text = '';
+    if (pathname === '/classes/add-new-class') {
+      link += '/add-new-class';
+      text = 'Add New Class';
+    }
+    breadcrumbRoutes.push({ link, text });
+  }
 
   return (
     <div>

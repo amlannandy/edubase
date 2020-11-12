@@ -7,7 +7,7 @@ import {
 const initialState = {
   classes: [],
   students: [],
-  isLoading: true,
+  isLoading: false,
 };
 
 export default (state = initialState, action) => {

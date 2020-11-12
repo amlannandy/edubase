@@ -4,10 +4,12 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 import auth from './reducers/auth';
 import alert from './reducers/alert';
+import classes from './reducers/classes';
 
 const rootReducer = combineReducers({
   auth: auth,
   alert: alert,
+  classes: classes,
 });
 
 const initialState = {};
