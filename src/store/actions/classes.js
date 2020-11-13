@@ -1,11 +1,36 @@
 import store from '../store';
 import { setAlert } from './alert';
-import { TOGGLE_AUTH_LOADING } from './auth';
 import { db } from '../../firebase/firebase';
 
 export const ADD_CLASS = 'ADD_CLASS';
 export const FETCH_CLASSES = 'FETCH_CLASSES';
 export const TOGGLE_CLASS_LOADING = 'TOGGLE_CLASS_LOADING';
+
+export const fetchClasses = () => async dispatch => {
+  try {
+    dispatch({ type: TOGGLE_CLASS_LOADING });
+    const res = await db
+      .collection('classes')
+      // .where('userId', '==', store.getState().auth.userId)
+      .get();
+    const fetchedClasses = res.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        batch: data.batch,
+        className: data.className,
+        semester: data.semester,
+        subjectName: data.subjectName,
+        teacherName: data.teacherName,
+        userId: data.userId,
+      };
+    });
+    dispatch({ type: FETCH_CLASSES, payload: fetchedClasses });
+  } catch (error) {
+    dispatch(setAlert(error.message, 'danger'));
+    dispatch({ type: TOGGLE_CLASS_LOADING });
+  }
+};
 
 export const addClass = (
   className,
@@ -17,23 +42,21 @@ export const addClass = (
 ) => async dispatch => {
   try {
     dispatch({ type: TOGGLE_CLASS_LOADING });
-    db.collection('classes')
-      .doc()
-      .set({
-        className: className,
-        teacherName: teacher,
-        subjectName: subject,
-        batch: batch,
-        semester: semester,
-        userId: store.getState().auth.userId,
-      })
-      .then(res => {
-        dispatch(setAlert('Class Successfully Added.', 'success'));
-        dispatch({ type: TOGGLE_CLASS_LOADING });
-        history.push('/classes');
-      });
+    const newClass = {
+      className: className,
+      teacherName: teacher,
+      subjectName: subject,
+      batch: batch,
+      semester: semester,
+      userId: store.getState().auth.userId,
+    };
+    const res = await db.collection('classes').doc().set(newClass);
+    console.log(res);
+    dispatch(setAlert('Class Successfully Added.', 'success'));
+    dispatch(fetchClasses());
+    history.push('/classes');
   } catch (error) {
     dispatch(setAlert(error.message, 'danger'));
-    dispatch({ type: TOGGLE_AUTH_LOADING });
+    dispatch({ type: TOGGLE_CLASS_LOADING });
   }
 };
