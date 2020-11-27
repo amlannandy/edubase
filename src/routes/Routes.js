@@ -20,9 +20,9 @@ const Routes = () => {
     <Container className='my-3'>
       <Switch>
         <Route exact path='/' component={Home} />
-        <PrivateRoute exact path='/dashboard' component={Dashboard} />
+        <PrivateRoute path='/dashboard' component={Dashboard} />
         <PrivateRoute path='/classes' component={Classes} />
-        <PrivateRoute exact path='/account' component={Account} />
+        <PrivateRoute path='/account' component={Account} />
         <GuestRoute exact path='/login' component={Login} />
         <GuestRoute exact path='/register' component={Register} />
         <Route component={PageNotFound} />
