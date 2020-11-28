@@ -50,8 +50,7 @@ export const addClass = (
       semester: semester,
       userId: store.getState().auth.userId,
     };
-    const res = await db.collection('classes').doc().set(newClass);
-    console.log(res);
+    await db.collection('classes').doc().set(newClass);
     dispatch(setAlert('Class Successfully Added.', 'success'));
     dispatch(fetchClasses());
     history.push('/classes');

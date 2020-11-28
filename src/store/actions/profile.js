@@ -17,3 +17,16 @@ export const fetchProfile = userId => async dispatch => {
     dispatch({ type: TOGGLE_PROFILE_LOADING });
   }
 };
+
+export const addProfile = (userId, userData, history) => async dispatch => {
+  try {
+    dispatch({ type: TOGGLE_PROFILE_LOADING });
+    await db.collection('users').doc(userId).set(userData);
+    dispatch(setAlert('Profile Added.', 'success'));
+    dispatch(fetchProfile(userId));
+    history.push('/account');
+  } catch (error) {
+    dispatch(setAlert(error.message, 'danger'));
+    dispatch({ type: TOGGLE_PROFILE_LOADING });
+  }
+};
