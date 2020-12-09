@@ -23,7 +23,6 @@ const Account = ({ location: { pathname }, match: { url, isExact } }) => {
       link += '/add-profile';
       text = 'Add Profile';
     }
-    console.log('Fucl');
     breadcrumbRoutes.push({ link, text });
   }
 

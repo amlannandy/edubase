@@ -1,5 +1,6 @@
 import { setAlert } from './alert';
-import { db } from '../../firebase/firebase';
+import { db, storage } from '../../firebase/firebase';
+import PocketData from '../../components/Account/PocketData';
 
 export const ADD_PROFILE = 'ADD_PROFILE';
 export const FETCH_PROFILE = 'FETCH_PROFILE';
@@ -25,6 +26,20 @@ export const addProfile = (userId, userData, history) => async dispatch => {
     dispatch(setAlert('Profile Added.', 'success'));
     dispatch(fetchProfile(userId));
     history.push('/account');
+  } catch (error) {
+    dispatch(setAlert(error.message, 'danger'));
+    dispatch({ type: TOGGLE_PROFILE_LOADING });
+  }
+};
+
+export const uploadDisplayPicture = (userId, imageFile) => async dispatch => {
+  try {
+    const url = await storage.ref(imageFile);
+    await db.collection('users').doc(userId).update({
+      imageUrl: url,
+    });
+    dispatch(setAlert('Display Picture Updated', 'primary'));
+    dispatch(fetchProfile(userId));
   } catch (error) {
     dispatch(setAlert(error.message, 'danger'));
     dispatch({ type: TOGGLE_PROFILE_LOADING });

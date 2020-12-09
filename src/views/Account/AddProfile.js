@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import ImageUploader from 'react-images-upload';
 import { useDispatch, useSelector } from 'react-redux';
 import { Col, Button } from 'react-bootstrap';
 import {
@@ -30,18 +31,23 @@ const AddProfile = ({ history }) => {
     phone: '',
     branch: branches[0],
     position: positions[0],
+    image: null,
   };
 
   const [formData, setFormData] = useReducer(formReducer, initialFormData);
   const isLoading = useSelector(state => state.profile.isLoading);
 
   const addProfileHandler = () => {
-    const { name, age, phone, branch, position } = formData;
+    const { name, age, phone, branch, position, image } = formData;
     if (
       (name === '' || age === '',
       phone === '' || branch === '' || position === '')
     ) {
       dispatch(setAlert('Please fill all fields', 'danger'));
+      return;
+    }
+    if (!image) {
+      dispatch(setAlert('Please upload an image', 'warning'));
       return;
     }
     dispatch(addProfile(userId, formData, history));
@@ -54,6 +60,14 @@ const AddProfile = ({ history }) => {
   return (
     <Col className='col-md-8 text-start my-5'>
       <h3>Add Profile</h3>
+      <hr />
+      <ImageUploader
+        withIcon={true}
+        buttonText='Choose Display Picture'
+        onChange={picture => setFormData({ type: 'image', payload: picture })}
+        imgExtension={['.jpg', '.png']}
+        maxFileSize={5242880}
+      />
       <CustomInput
         text='Enter your Name'
         icon={faUser}
